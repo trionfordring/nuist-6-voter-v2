@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="icu.fordring.voter.mapper.UserMapper">
+
+    <resultMap id="UserSelect" type="User">
+        <id property="id" column="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="student_id" property="studentId"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="enabled" property="enabled"/>
+        <result column="last_password_reset_date" property="lastPasswordResetDate"/>
+        <result column="create_date" property="createDate"/>
+        <result column="head" property="head"/>
+        <collection property="roles" ofType="Role">
+            <id property="id" column="rid"/>
+            <result column="rname" property="name"/>
+            <result column="rdescription" property="description"/>
+            <collection property="authorities" ofType="icu.fordring.voter.pojo.Authority">
+                <id property="id" column="aid"/>
+                <result column="aname" property="name"/>
+                <result column="adescription" property="description"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectById" resultMap="UserSelect">
+        SELECT
+            `user`.id id,
+            `user`.username username,
+            `user`.`password` `password`,
+            `user`.real_name real_name,
+            `user`.student_id student_id,
+            `user`.email email,
+            `user`.phone phone,
+            `user`.enabled enabled,
+            `user`.last_password_reset_date last_password_reset_date,
+            `user`.create_date create_date,
+            `user`.description description,
+            `user`.head head,
+            role.id rid,
+            role.description rdescription,
+            role.`name` rname,
+            authority.id aid,
+            authority.`name` aname,
+            authority.description adescription
+        FROM `user`
+            INNER JOIN user_role ON user_role.uid=`user`.id
+            INNER JOIN role ON role.id=user_role.rid
+            INNER JOIN role_authority ON role_authority.rid=role.id
+            INNER JOIN authority ON authority.id=role_authority.aid
+            WHERE `user`.id=#{id}
+    </select>
+
+    <select id="selectByName" resultMap="UserSelect">
+        SELECT
+            `user`.id id,
+            `user`.username username,
+            `user`.`password` `password`,
+            `user`.real_name real_name,
+            `user`.student_id student_id,
+            `user`.email email,
+            `user`.phone phone,
+            `user`.enabled enabled,
+            `user`.last_password_reset_date last_password_reset_date,
+            `user`.create_date create_date,
+            `user`.description description,
+            `user`.head head,
+            role.id rid,
+            role.description rdescription,
+            role.`name` rname,
+            authority.id aid,
+            authority.`name` aname,
+            authority.description adescription
+        FROM `user`
+            INNER JOIN user_role ON user_role.uid=`user`.id
+            INNER JOIN role ON role.id=user_role.rid
+            INNER JOIN role_authority ON role_authority.rid=role.id
+            INNER JOIN authority ON authority.id=role_authority.aid
+            WHERE `user`.username=#{name}
+    </select>
+
+    <insert id="insert" parameterType="User">
+        INSERT INTO `user`
+	        (id,username,`password`,real_name,student_id,email,phone,enabled,last_password_reset_date,create_date,description,head)
+        VALUES
+	        (#{id},#{username},#{password},#{realName},#{studentId},#{email},#{phone},#{enabled},NOW(),NOW(),#{description},#{head});
+
+        <if test="roles.size()>0">
+            INSERT INTO `user_role`
+            (uid,rid)
+            values
+            <foreach collection="roles" item="item" separator=",">
+                (#{id},#{item.id})
+            </foreach>;
+        </if>
+    </insert>
+
+    <update id="updateById" parameterType="User">
+        UPDATE `user`
+        SET
+            username=#{username},
+            `password`=#{password},
+            real_name=#{realName},
+            student_id=#{studentId},
+            email=#{email},
+            phone=#{phone},
+            enabled=#{enabled},
+            description=#{description},
+            head=#{head}
+        WHERE
+            id=#{id}
+    </update>
+
+    <select id="countByName" resultType="int">
+        SELECT COUNT(*)
+        FROM `user`
+        WHERE username=#{name}
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+app:
+  security:
+    # 是否启用spring-security
+    enable: on
+  dev:
+    # 是否启用开发环境(只有在开发环境下，才能访问swagger，TestController及其他测试对象)
+    enable: on
+    # swagger配置
+    swagger:
+      path: /api
+  authority:
+    default-authorities:
+      - "USER_LOGIN"              #登录
+      - "USER_REGISTER"           #注册
+      - "USER_FIND_BACK"          #找回密码
+      - "ERROR"                   #查看异常
+      - "HAS_LOGIN"               #判断是否已登录
+      - "AUTHORITY_NAMES_SELF"    #查看自身的所有权限名
+
+  init-database-when-start: on  #警告：启用此项后，程序启动时会自动重置数据库到默认状态
