@@ -6,6 +6,7 @@ import icu.fordring.voter.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.Resource;
@@ -29,6 +30,14 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * @Author fordring
+     * @Description  插入一个用户的完整信息
+     * @Date 2020/7/8 12:31
+     * @Param [user]
+     * @return void
+     **/
+    @Transactional
     public void insertUser(User user){
         Long t = System.currentTimeMillis();
         if(user.getId()==null)user.setId(StringUtils.UUID());

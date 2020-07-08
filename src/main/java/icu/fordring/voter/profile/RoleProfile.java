@@ -6,15 +6,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description 权限相关配置
- * @ClassName AuthorityProfile
+ * @Description
+ * @ClassName RoleProfile
  * @Author fordring
- * @date 2020.07.06 11:37
+ * @date 2020.07.08 13:36
  */
 @Component
 @Data
 @ToString
-@ConfigurationProperties(prefix = "app.authority")
-public class AuthorityProfile {
-    protected String[] defaultAuthorities;
+@ConfigurationProperties("app.role")
+public class RoleProfile {
+    private String userRole;
+    private String rootRole;
 }

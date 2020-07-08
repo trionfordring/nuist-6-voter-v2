@@ -1,16 +1,20 @@
 package icu.fordring.voter.component.init;
 
+import com.google.common.collect.Sets;
+import icu.fordring.voter.component.user.UserRegister;
+import icu.fordring.voter.dao.RoleDao;
 import icu.fordring.voter.mapper.AuthorityMapper;
 import icu.fordring.voter.mapper.DevMapper;
 import icu.fordring.voter.mapper.RoleAuthorityMapper;
 import icu.fordring.voter.mapper.RoleMapper;
 import icu.fordring.voter.pojo.Authority;
 import icu.fordring.voter.pojo.Role;
+import icu.fordring.voter.pojo.User;
+import icu.fordring.voter.profile.RoleProfile;
+import icu.fordring.voter.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -22,8 +26,7 @@ import java.util.List;
  */
 @Component
 @Slf4j
-@ConditionalOnProperty("app.init-database-when-start")
-public class DatabaseInitializer {
+public class DatabaseInitializer implements Initializer {
     @Resource
     private DevMapper devMapper;
     @Resource
@@ -32,11 +35,32 @@ public class DatabaseInitializer {
     private AuthorityMapper authorityMapper;
     @Resource
     private RoleAuthorityMapper roleAuthorityMapper;
-
-    public DatabaseInitializer(){
-        log.info("载入[DatabaseInitializer],即将重置数据库");
+    @Resource
+    private UserRegister userRegister;
+    @Resource
+    private RoleDao roleDao;
+    @Resource
+    private RoleProfile roleProfile;
+    @Override
+    public void init() {
+        resetDataBase();
     }
-    
+
+    @Override
+    public void after() throws Exception {
+        String pwd = StringUtils.getRandomString(16);
+        Role root = roleDao.getRoleByName(roleProfile.getRootRole());
+        User user = userRegister.register("root", pwd, Sets.newHashSet(root));
+        log.info("初始化root用户完成\n" +
+                "====================================================================\n" +
+                "==  \n" +
+                "==  初始化root账户完成\n" +
+                "==    账户名:\t{}\n" +
+                "==    密 码 :\t{}\n" +
+                "==  \n" +
+                "====================================================================",user.getUsername(),pwd);
+    }
+
     /**
      * @Author fordring
      * @Description  用于重置数据库
@@ -44,7 +68,6 @@ public class DatabaseInitializer {
      * @Param []
      * @return void
      **/
-    @PostConstruct
     public void resetDataBase(){
         long time = System.currentTimeMillis();
         log.warn("==========[现在开始重置数据库]==========");

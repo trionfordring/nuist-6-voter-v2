@@ -6,15 +6,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description 权限相关配置
- * @ClassName AuthorityProfile
+ * @Description spring-security配置
+ * @ClassName SecurityProfile
  * @Author fordring
- * @date 2020.07.06 11:37
+ * @date 2020.07.08 12:43
  */
 @Component
 @Data
 @ToString
-@ConfigurationProperties(prefix = "app.authority")
-public class AuthorityProfile {
-    protected String[] defaultAuthorities;
+@ConfigurationProperties("app.security")
+public class SecurityProfile {
+    private boolean enable;
 }

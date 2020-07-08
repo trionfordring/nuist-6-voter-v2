@@ -15,6 +15,7 @@ public class UserFactory {
     public User newDefaultUser(){
         User user = new User();
         user.setId(StringUtils.UUID());
+        user.setEnabled(true);
         return user;
     }
 }

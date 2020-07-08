@@ -1,5 +1,6 @@
 package icu.fordring.voter.dto.user;
 
+import icu.fordring.voter.bean.UserInfo;
 import icu.fordring.voter.pojo.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,4 +39,5 @@ public class UserDto {
         this.phone=user.getPhone();
         this.description=user.getDescription();
     }
+
 }

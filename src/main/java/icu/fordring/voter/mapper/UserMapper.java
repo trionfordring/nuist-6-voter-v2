@@ -37,8 +37,14 @@ public interface UserMapper {
      * @return icu.fordring.voter.pojo.User
      **/
     int updateById(User user);
+    /**
+     * @Author fordring
+     * @Description  向数据库添加一个用户（包括它的角色）
+     * @Date 2020/7/8 12:27
+     * @Param [user]
+     * @return int
+     **/
     int insert(User user);
-
     /**
      * @Author fordring
      * @Description  查询数据库中有多少个名为#{name}的用户

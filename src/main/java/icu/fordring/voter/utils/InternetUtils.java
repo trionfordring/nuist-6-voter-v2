@@ -1,5 +1,8 @@
 package icu.fordring.voter.utils;
 
+import org.springframework.security.web.context.HttpRequestResponseHolder;
+import org.springframework.web.context.request.RequestContextHolder;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -40,4 +43,5 @@ public class InternetUtils {
         }
         return ip;
     }
+
 }
