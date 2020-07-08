@@ -36,7 +36,6 @@ public class Tool {
         devMapper.initRole();
     }
 
-    @Test
     public void initRoleAuthority(){
         devMapper.createRoleAuthority();
         log.info("创建表[role_authority]完成");

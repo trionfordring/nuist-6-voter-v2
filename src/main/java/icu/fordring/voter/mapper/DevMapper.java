@@ -1,7 +1,6 @@
 package icu.fordring.voter.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 /**
  * @Description
@@ -11,14 +10,23 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
  */
 @Mapper
 public interface DevMapper {
-    int createRole();
-    int cleanRole();
-    int initRole();
+    void createRole();
+    void cleanRole();
+    void initRole();
 
-    int createRoleAuthority();
-    int cleanRoleAuthority();
+    void createRoleAuthority();
+    void cleanRoleAuthority();
 
-    int createAuthority();
-    int cleanAuthority();
-    int initAuthority();
+    void createAuthority();
+    void cleanAuthority();
+    void initAuthority();
+
+    void createUser();
+    void cleanUser();
+
+    void createHeadResource();
+    void cleanHeadResource();
+
+    void createUserRole();
+    void cleanUserRole();
 }

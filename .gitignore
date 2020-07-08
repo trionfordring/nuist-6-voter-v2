@@ -30,4 +30,6 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/application-private.yml
-/.mvn/*
+mvnw
+mvnw.cmd
+/.mvn/
