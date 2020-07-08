@@ -24,7 +24,7 @@ import java.util.Set;
  */
 @Data
 @Slf4j
-public class UserInfo implements UserDetails {
+public class UserInfo extends User implements UserDetails {
     private static final long serialVersionUID = 1L;
     private String id;
     private String username;
