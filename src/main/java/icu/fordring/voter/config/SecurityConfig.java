@@ -1,5 +1,6 @@
 package icu.fordring.voter.config;
 
+import icu.fordring.voter.component.user.LogoutSuccessHandler;
 import icu.fordring.voter.profile.AuthorityProfile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -44,11 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     @Resource
     private AuthorityProfile authorityProfile;
-
-       @Bean
+    @Resource
+    private LogoutSuccessHandler logoutSuccessHandler;
+    @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return authenticationManager();
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -62,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/error/unauthorized").loginProcessingUrl("/user/login")
                 .passwordParameter("password").usernameParameter("name")
-                .failureHandler(authenticationFailureHandler).successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
+                .successHandler(authenticationSuccessHandler)
                 .and().rememberMe()
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3153600)
@@ -70,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorities(
                         authorityProfile.getDefaultAuthorities()
                 )
-                .and().logout().logoutUrl("/logout")
+                .and().logout().logoutUrl("/user/logout").logoutSuccessHandler(logoutSuccessHandler)
         ;
     }
     private CorsConfigurationSource CorsConfigurationSource() {

@@ -20,4 +20,4 @@ app:
     user-role: "USER"
     root-role: "ROOT"
 
-  init-database-when-start: on  #警告：启用此项后，程序启动时会自动重置数据库到默认状态
+  init-database-when-start: off  #警告：启用此项后，程序启动时会自动重置数据库到默认状态

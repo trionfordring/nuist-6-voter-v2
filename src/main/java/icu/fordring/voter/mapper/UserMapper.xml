@@ -47,10 +47,10 @@
             authority.`name` aname,
             authority.description adescription
         FROM `user`
-            INNER JOIN user_role ON user_role.uid=`user`.id
-            INNER JOIN role ON role.id=user_role.rid
-            INNER JOIN role_authority ON role_authority.rid=role.id
-            INNER JOIN authority ON authority.id=role_authority.aid
+            LEFT JOIN user_role ON user_role.uid=`user`.id
+            LEFT JOIN role ON role.id=user_role.rid
+            LEFT JOIN role_authority ON role_authority.rid=role.id
+            LEFT JOIN authority ON authority.id=role_authority.aid
             WHERE `user`.id=#{id}
     </select>
 
@@ -75,10 +75,10 @@
             authority.`name` aname,
             authority.description adescription
         FROM `user`
-            INNER JOIN user_role ON user_role.uid=`user`.id
-            INNER JOIN role ON role.id=user_role.rid
-            INNER JOIN role_authority ON role_authority.rid=role.id
-            INNER JOIN authority ON authority.id=role_authority.aid
+            LEFT JOIN user_role ON user_role.uid=`user`.id
+            LEFT JOIN role ON role.id=user_role.rid
+            LEFT JOIN role_authority ON role_authority.rid=role.id
+            LEFT JOIN authority ON authority.id=role_authority.aid
             WHERE `user`.username=#{name}
     </select>
 
