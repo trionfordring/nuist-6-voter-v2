@@ -1,9 +1,13 @@
 package icu.fordring.voter.service;
 
+import icu.fordring.voter.bean.UserInfo;
 import icu.fordring.voter.component.user.UserRegister;
 import icu.fordring.voter.dao.UserDao;
+import icu.fordring.voter.dto.user.UserDetailDto;
 import icu.fordring.voter.dto.user.UserDto;
+import icu.fordring.voter.dto.user.UserNameExistDto;
 import icu.fordring.voter.pojo.User;
+import icu.fordring.voter.utils.AuthorityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,5 +66,30 @@ public class UserService {
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
         log.info("用户{}登录成功",name);
+    }
+
+    /**
+     * @Author fordring
+     * @Description  查询用户名是否已存在
+     * @Date 2020/7/9 9:47
+     * @Param [name]
+     * @return icu.fordring.voter.dto.user.UserNameExistDto
+     **/
+    public UserNameExistDto exist(String name){
+        boolean exist = userDao.exist(name);
+        return new UserNameExistDto(exist);
+    }
+    
+    /**
+     * @Author fordring
+     * @Description  查询当前用户的详细信息
+     * @Date 2020/7/9 10:23
+     * @Param []
+     * @return icu.fordring.voter.dto.user.UserDetailDto
+     **/
+    public UserDetailDto details(){
+        UserInfo userInfo = AuthorityUtils.getSelf();
+        log.info("用户{}查询了自身的详细信息",userInfo.getUsername());
+        return new UserDetailDto(userInfo);
     }
 }
