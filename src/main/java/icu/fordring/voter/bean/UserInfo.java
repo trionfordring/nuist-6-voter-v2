@@ -114,4 +114,9 @@ public class UserInfo extends User implements UserDetails {
         if(enabled==null)return false;
         return enabled;
     }
+
+    @Override
+    public String toString(){
+        return "name="+username;
+    }
 }

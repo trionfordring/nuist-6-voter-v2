@@ -5,6 +5,7 @@ import icu.fordring.voter.component.user.UserRegister;
 import icu.fordring.voter.dao.UserDao;
 import icu.fordring.voter.dto.user.UserDetailDto;
 import icu.fordring.voter.dto.user.UserDto;
+import icu.fordring.voter.dto.user.UserHasLoginDto;
 import icu.fordring.voter.dto.user.UserNameExistDto;
 import icu.fordring.voter.pojo.User;
 import icu.fordring.voter.utils.AuthorityUtils;
@@ -91,5 +92,20 @@ public class UserService {
         UserInfo userInfo = AuthorityUtils.getSelf();
         log.info("用户{}查询了自身的详细信息",userInfo.getUsername());
         return new UserDetailDto(userInfo);
+    }
+
+    /**
+     * @Author fordring
+     * @Description  判断用户是否已经登录
+     * @Date 2020/7/9 16:20
+     * @Param []
+     * @return icu.fordring.voter.dto.user.UserHasLoginDto
+     **/
+    public UserHasLoginDto hasLogin(){
+        boolean ans = false;
+        Authentication authentication = AuthorityUtils.getSelfAuthentication();
+        if(authentication.getPrincipal() instanceof UserInfo)ans = true;
+        log.info("用户[{}]检查自己登录状态:{}",authentication.getPrincipal(),ans);
+        return new UserHasLoginDto(ans);
     }
 }

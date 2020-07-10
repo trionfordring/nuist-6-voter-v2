@@ -3,6 +3,7 @@ package icu.fordring.voter.controller;
 import icu.fordring.voter.dto.Result;
 import icu.fordring.voter.dto.user.UserDetailDto;
 import icu.fordring.voter.dto.user.UserDto;
+import icu.fordring.voter.dto.user.UserHasLoginDto;
 import icu.fordring.voter.dto.user.UserNameExistDto;
 import icu.fordring.voter.service.UserService;
 import io.swagger.annotations.Api;
@@ -58,5 +59,12 @@ public class UserController {
     @RequestMapping(value = "/details",method = RequestMethod.GET)
     public Result<UserDetailDto> details(){
         return new Result<>(HttpStatus.OK, userService.details(),"查询成功");
+    }
+
+    @PreAuthorize("hasAuthority('HAS_LOGIN')")
+    @ApiOperation(value = "查询用户是否已登录",notes = "[HAS_LOGIN]")
+    @RequestMapping(value = "/hasLogin",method = RequestMethod.GET)
+    public Result<UserHasLoginDto> hasLogin(){
+        return new Result<>(HttpStatus.OK,userService.hasLogin(),"查询成功");
     }
 }
