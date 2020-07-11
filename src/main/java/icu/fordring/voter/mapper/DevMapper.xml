@@ -54,30 +54,32 @@
         TRUNCATE TABLE `authority`;
     </update>
     <insert id="initAuthority">
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (1, 'USER_LOGIN', '登录权限', -1);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (2, 'USER_REGISTER', '注册权限', -1);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (3, 'USER_LOGOUT', '登出权限', 1);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (4, 'USER_INFO', '获取自身的信息', 1);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (5, 'USER_ALL_QUERY', '查询普通用户信息', 50);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (6, 'USER_ALL_UPDATE', '修改普通用户信息', 70);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (7, 'USER_ALL_BAN', '封禁普通用户', 90);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (8, 'USER_ALL_DELETE', '删除普通用户', 110);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (9, 'USER_UPDATE', '修改自身的信息', 5);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (10, 'USER_BAN', '注销自身的账户', 7);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (11, 'USER_ROOT_QUERY', '获取所有用户的信息', 100);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (12, 'USER_ROOT_UPDATE', '修改所有用户的信息', 150);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (13, 'USER_ROOT_BAN', '封停任意用户', 190);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (14, 'USER_ROOT_DELETE', '删除任意账户', 210);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (15, 'USER_ALL_INSERT', '增加普通用户', 80);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (16, 'USER_ROOT_INSERT', '增加ROOT用户', 1000);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (17, 'USER_FIND_BACK', '找回密码', -1);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (18, 'ERROR', '访问异常处理器', 0);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (19, 'AUTHORITY_LIST', '获取权限列表', 20);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (20, 'DEV', '访问开发工具的权限', 0);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (21, 'AUTHORITY_SELF', '获取自身的权限列表', 1);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (22, 'HAS_LOGIN', '判断自己是否已经登录', 0);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (23, 'AUTHORITY_NAMES_SELF', '获取自身的权限名列表', 0);
-        INSERT INTO `authority`(`id`, `name`, `description`, `level`) VALUES (24, 'USER_ADMIN_INSERT', '添加管理员账户', 500);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_LOGIN', '登录权限', -1);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_REGISTER', '注册权限', -1);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_FIND_BACK', '找回密码', -1);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_LOGOUT', '登出权限', 1);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_INFO', '获取自身的信息', 1);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_QUERY', '查询普通用户信息', 50);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_UPDATE', '修改普通用户信息', 70);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_BAN', '封禁普通用户', 90);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_DELETE', '删除普通用户', 110);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_UPDATE', '修改自身的信息', 5);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_BAN', '注销自身的账户', 7);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_QUERY', '获取所有用户的信息', 100);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_UPDATE', '修改所有用户的信息', 150);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_BAN', '封停任意用户', 190);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_DELETE', '删除任意账户', 210);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_INSERT', '增加普通用户', 80);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_INSERT', '增加ROOT用户', 1000);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ADMIN_INSERT', '添加管理员账户', 500);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('HAS_LOGIN', '判断自己是否已经登录', 0);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ERROR', '访问异常处理器', 0);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('DEV', '访问开发工具的权限', 0);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_LIST', '获取权限列表', 20);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_SELF', '获取自身的权限列表', 1);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_NAMES_SELF', '获取自身的权限名列表', 0);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_SELF', '获取自身的角色列表', 0);
+INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_QUERY', '获取角色的详细信息', 25);
     </insert>
 
     <update id="createUser">

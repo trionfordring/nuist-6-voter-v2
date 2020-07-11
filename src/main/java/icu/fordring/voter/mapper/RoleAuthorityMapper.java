@@ -1,5 +1,6 @@
 package icu.fordring.voter.mapper;
 
+import icu.fordring.voter.pojo.Role;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

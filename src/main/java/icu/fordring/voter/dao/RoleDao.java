@@ -31,4 +31,17 @@ public class RoleDao {
         Role role = roleMapper.selectByName(name);
         return role;
     }
+    
+    /**
+     * @Author fordring
+     * @Description  通过角色名查找角色详细信息
+     * @Date 2020/7/11 12:45
+     * @Param [name]
+     * @return icu.fordring.voter.pojo.Role
+     **/
+    public Role getRoleDetailByName(String name){
+        log.info("查找角色[{}]",name);
+        Role role = roleMapper.selectDetailByName(name);
+        return role;
+    }
 }

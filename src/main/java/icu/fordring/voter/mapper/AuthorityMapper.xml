@@ -4,4 +4,8 @@
     <select id="selectAll" resultType="icu.fordring.voter.pojo.Authority">
         SELECT * FROM authority
     </select>
+
+    <select id="selectByName" resultType="icu.fordring.voter.pojo.Authority">
+        SELECT * FROM authority WHERE name=#{name}
+    </select>
 </mapper>

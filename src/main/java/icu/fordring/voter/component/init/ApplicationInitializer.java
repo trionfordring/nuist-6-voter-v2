@@ -30,6 +30,8 @@ public class ApplicationInitializer implements Initializer {
     @Resource
     private ApplicationProfile applicationProfile;
     @Resource
+    private RoleInitializer roleInitializer;
+    @Resource
     private ObjectMapper objectMapper;
     @Override
     @PostConstruct
@@ -41,14 +43,14 @@ public class ApplicationInitializer implements Initializer {
             databaseInitializer.init();
             log.warn("初始化数据库完成");
         }
+        roleInitializer.init();
         after();
         log.info("程序初始化完成");
     }
 
     @Override
     public void after() throws Exception {
-        if(applicationProfile.isInitDatabaseWhenStart()){
-            databaseInitializer.after();
-        }
+        if(applicationProfile.isInitDatabaseWhenStart()) databaseInitializer.after();
+        roleInitializer.after();
     }
 }

@@ -16,6 +16,7 @@ app:
       - "ERROR"                   #查看异常
       - "HAS_LOGIN"               #判断是否已登录
       - "AUTHORITY_NAMES_SELF"    #查看自身的所有权限名
+      - "ROLE_SELF"               #查询当前的角色
   role:
     user-role: "USER"
     root-role: "ROOT"

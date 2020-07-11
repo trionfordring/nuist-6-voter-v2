@@ -35,6 +35,5 @@ public class RoleFactory {
     }
 
 
-
-
+    public static Role ANONYMOUS_ROLE;
 }

@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="icu.fordring.voter.mapper.RoleMapper">
+
+    <resultMap id="roleType" type="icu.fordring.voter.pojo.Role">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="level" column="level"/>
+        <collection property="authorities" ofType="icu.fordring.voter.pojo.Authority">
+            <result property="id" column="aid"/>
+            <result property="name" column="aname"/>
+            <result property="description" column="adescription"/>
+            <result property="level" column="alevel"/>
+        </collection>
+    </resultMap>
     <select id="selectAll" resultType="icu.fordring.voter.pojo.Role">
         SELECT * FROM role
     </select>
 
     <select id="selectByName" resultType="icu.fordring.voter.pojo.Role">
         SELECT * FROM role where `name`=#{name}
+    </select>
+
+    <select id="selectDetailByName" resultMap="roleType">
+        SELECT role.id id,role.name name,role.description description,role.level level,
+               authority.id aid, authority.name aname, authority.description adescription, authority.level alevel
+        FROM role
+        LEFT JOIN role_authority ON role_authority.rid=role.id
+        LEFT JOIN authority ON authority.id=role_authority.aid
+        WHERE role.name = #{name}
     </select>
 </mapper>

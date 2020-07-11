@@ -16,7 +16,9 @@ public class AuthorityUtils {
         return SecurityContextHolder.getContext().getAuthentication();
     }
     public static UserInfo getSelf(){
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserInfo)
         return (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return null;
     }
     public static void setSelf(UserInfo userInfo){
         SecurityContextHolder.getContext().setAuthentication(

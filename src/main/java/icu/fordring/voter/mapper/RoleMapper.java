@@ -30,4 +30,13 @@ public interface RoleMapper {
      * @return icu.fordring.voter.pojo.Role
      **/
     Role selectByName(String name);
+    
+    /**
+     * @Author fordring
+     * @Description  通过角色名查找角色详细信息
+     * @Date 2020/7/11 12:42
+     * @Param [name]
+     * @return icu.fordring.voter.pojo.Role
+     **/
+    Role selectDetailByName(String name);
 }
