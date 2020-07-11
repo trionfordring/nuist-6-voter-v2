@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,7 +17,8 @@ import java.util.Set;
  * @date 2020.07.03 21:02
  */
 @Data
-public class Role {
+public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String name;
     private String description;

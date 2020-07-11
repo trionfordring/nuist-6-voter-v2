@@ -52,8 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private LogoutSuccessHandler logoutSuccessHandler;
     @Resource
-    private ApplicationProfile applicationProfile;
-    @Resource
     private PersistentTokenRepository tokenRepository;
     @Bean
     @Override
@@ -65,7 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository tokenRepository(DataSource dataSource) {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
-        tokenRepository.setCreateTableOnStartup(applicationProfile.isInitDatabaseWhenStart());
         return tokenRepository;
     }
     @Override
@@ -86,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3153600)
                 .tokenRepository(tokenRepository)
+                .useSecureCookie(true)
                 .and().anonymous()
                 .authorities(
                         authorityProfile.getDefaultAuthorities()

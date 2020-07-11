@@ -1,8 +1,11 @@
 package icu.fordring.voter.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -49,5 +52,15 @@ public class MvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 // 跨域允许时间
                 .maxAge(7200);
+    }
+
+    @Bean
+    public CookieSerializer httpSessionIdResolver(){
+        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setCookieName("token");
+        cookieSerializer.setUseHttpOnlyCookie(false);
+        cookieSerializer.setUseSecureCookie(true);
+        cookieSerializer.setSameSite("none");
+        return cookieSerializer;
     }
 }

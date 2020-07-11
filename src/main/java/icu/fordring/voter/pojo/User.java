@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,7 +23,8 @@ import java.util.Set;
  */
 @Data
 @Slf4j
-public class User{
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String id;
     protected String username;
     protected String password;

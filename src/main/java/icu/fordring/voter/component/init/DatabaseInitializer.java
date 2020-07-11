@@ -84,6 +84,10 @@ public class DatabaseInitializer implements Initializer {
             initHeadResourceTable();
             log.warn("  =====[重置[用户-角色]关联表]=====  ");
             initUserRoleTable();
+            log.warn("  ==========[建立会话表]===========  ");
+            initSessionTable();
+            log.warn("  ======[建立[remember-me]表]======");
+            initPersistentLoginTable();
         }catch (RuntimeException e){
             log.error("!=====================================!");
             log.error(" 重置数据库耗时:{}ms",System.currentTimeMillis()-time);
@@ -223,5 +227,35 @@ public class DatabaseInitializer implements Initializer {
             throw new RuntimeException("重置[用户-角色]关联表失败");
         }
         log.warn("重置[用户-角色]关联表成功");
+    }
+    /**
+     * @Author fordring
+     * @Description  建立会话表
+     * @Date 2020/7/11 21:53
+     * @Param []
+     * @return void
+     **/
+    private void initSessionTable(){
+        log.warn("正在建立会话表");
+        try {
+            devMapper.createSessionTable();
+        }catch (Exception e){
+            throw new RuntimeException("建立会话表失败");
+        }
+    }
+    /**
+     * @Author fordring
+     * @Description  建立[remember-me]表
+     * @Date 2020/7/11 21:58
+     * @Param []
+     * @return void
+     **/
+    private void initPersistentLoginTable(){
+        log.warn("正在建立[remember-me]表");
+        try {
+            devMapper.createPersistentLoginTable();
+        }catch (Exception e){
+            throw new RuntimeException("建立[remember-me]表失败");
+        }
     }
 }

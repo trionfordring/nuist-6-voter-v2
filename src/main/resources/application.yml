@@ -33,6 +33,8 @@ spring:
     active:
       - common
       - private
+  session:
+    store-type: jdbc
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

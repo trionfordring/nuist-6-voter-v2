@@ -29,4 +29,8 @@ public interface DevMapper {
 
     void createUserRole();
     void cleanUserRole();
+
+    void createSessionTable();
+
+    void createPersistentLoginTable();
 }
