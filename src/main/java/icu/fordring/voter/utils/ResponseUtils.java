@@ -24,7 +24,7 @@ public class ResponseUtils {
     @Resource
     private ObjectMapper objectMapper;
     public void writeResult(Result<?> result, HttpServletResponse httpServletResponse) throws IOException {
-        httpServletResponse.setHeader("Content-type", "text/json;charset=UTF-8");
+        httpServletResponse.setHeader("Content-type", "application/json;charset=UTF-8");
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setStatus(result.getStatus());
         Writer writer = httpServletResponse.getWriter();

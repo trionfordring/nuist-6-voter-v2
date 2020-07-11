@@ -1,6 +1,7 @@
 package icu.fordring.voter.config;
 
 import icu.fordring.voter.component.user.LogoutSuccessHandler;
+import icu.fordring.voter.profile.ApplicationProfile;
 import icu.fordring.voter.profile.AuthorityProfile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,11 +19,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /**
  * @Description spring-security的配置类
@@ -47,10 +51,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthorityProfile authorityProfile;
     @Resource
     private LogoutSuccessHandler logoutSuccessHandler;
+    @Resource
+    private ApplicationProfile applicationProfile;
+    @Resource
+    private PersistentTokenRepository tokenRepository;
     @Bean
     @Override
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
+    }
+
+    @Bean
+    public PersistentTokenRepository tokenRepository(DataSource dataSource) {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        tokenRepository.setCreateTableOnStartup(applicationProfile.isInitDatabaseWhenStart());
+        return tokenRepository;
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -69,6 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe()
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3153600)
+                .tokenRepository(tokenRepository)
                 .and().anonymous()
                 .authorities(
                         authorityProfile.getDefaultAuthorities()
