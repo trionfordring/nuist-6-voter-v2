@@ -46,3 +46,10 @@ logging:
   level:
     # root日志以WARN级别输出
     root: info
+server:
+  ssl:
+    protocol: TLS
+    key-alias: ${app.ssl.key-alias}
+    key-store: ${app.ssl.key-store}
+    key-store-password: ${app.ssl.key-store-password}
+    key-store-type: ${app.ssl.key-store-type}
