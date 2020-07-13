@@ -54,32 +54,32 @@
         TRUNCATE TABLE `authority`;
     </update>
     <insert id="initAuthority">
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_LOGIN', '登录权限', -1);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_REGISTER', '注册权限', -1);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_FIND_BACK', '找回密码', -1);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_LOGOUT', '登出权限', 1);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_INFO', '获取自身的信息', 1);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_QUERY', '查询普通用户信息', 50);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_UPDATE', '修改普通用户信息', 70);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_BAN', '封禁普通用户', 90);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_DELETE', '删除普通用户', 110);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_UPDATE', '修改自身的信息', 5);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_BAN', '注销自身的账户', 7);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_QUERY', '获取所有用户的信息', 100);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_UPDATE', '修改所有用户的信息', 150);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_BAN', '封停任意用户', 190);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_DELETE', '删除任意账户', 210);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_INSERT', '增加普通用户', 80);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_INSERT', '增加ROOT用户', 1000);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ADMIN_INSERT', '添加管理员账户', 500);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('HAS_LOGIN', '判断自己是否已经登录', 0);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ERROR', '访问异常处理器', 0);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('DEV', '访问开发工具的权限', 0);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_LIST', '获取权限列表', 20);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_SELF', '获取自身的权限列表', 1);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_NAMES_SELF', '获取自身的权限名列表', 0);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_SELF', '获取自身的角色列表', 0);
-INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_QUERY', '获取角色的详细信息', 25);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_LOGIN', '登录权限', -1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_REGISTER', '注册权限', -1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_FIND_BACK', '找回密码', -1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_LOGOUT', '登出权限', 1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_INFO', '获取自身的信息', 1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_QUERY', '查询普通用户信息', 50);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_UPDATE', '修改普通用户信息', 70);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_BAN', '封禁普通用户', 90);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_DELETE', '删除普通用户', 110);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_UPDATE', '修改自身的信息', 5);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_BAN', '注销自身的账户', 7);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_QUERY', '获取所有用户的信息', 100);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_UPDATE', '修改所有用户的信息', 150);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_BAN', '封停任意用户', 190);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_DELETE', '删除任意账户', 210);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_INSERT', '增加普通用户', 80);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_INSERT', '增加ROOT用户', 1000);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ADMIN_INSERT', '添加管理员账户', 500);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('HAS_LOGIN', '判断自己是否已经登录', 0);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ERROR', '访问异常处理器', 0);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('DEV', '访问开发工具的权限', 0);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_LIST', '获取权限列表', 20);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_SELF', '获取自身的权限列表', 1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_NAMES_SELF', '获取自身的权限名列表', 0);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_SELF', '获取自身的角色列表', 0);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_QUERY', '获取角色的详细信息', 25);
     </insert>
 
     <update id="createUser">
@@ -154,7 +154,6 @@ INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_QUERY', '�
             CONSTRAINT SPRING_SESSION_ATTRIBUTES_FK FOREIGN KEY (SESSION_PRIMARY_ID) REFERENCES SPRING_SESSION(PRIMARY_ID) ON DELETE CASCADE
         ) ENGINE=INNODB ROW_FORMAT=DYNAMIC;
     </update>
-
     <update id="createPersistentLoginTable">
         DROP TABLE IF EXISTS `persistent_logins`;
         CREATE TABLE `persistent_logins`  (
@@ -164,5 +163,38 @@ INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_QUERY', '�
           `last_used` timestamp(0) NOT NULL,
           PRIMARY KEY (`series`) USING BTREE
         ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+    </update>
+    <update id="createCommentTable">
+        DROP TABLE IF EXISTS `comment`;
+        CREATE TABLE `comment`  (
+          `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+          `uid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `iid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `parent` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+          `create_time` datetime(0) NULL DEFAULT NULL,
+          PRIMARY KEY (`id`, `uid`, `iid`) USING BTREE
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+    </update>
+    <update id="createImageTable">
+        DROP TABLE IF EXISTS `image`;
+        CREATE TABLE `image`  (
+          `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `uid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+          `create_time` datetime(0) NULL DEFAULT NULL,
+          `resource` blob NULL,
+          PRIMARY KEY (`id`, `uid`) USING BTREE
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+    </update>
+    <update id="createLikeImageTable">
+        DROP TABLE IF EXISTS `like_image`;
+        CREATE TABLE `like_image`  (
+          `id` bigint(20) NOT NULL AUTO_INCREMENT,
+          `uid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `iid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `create_time` datetime(0) NULL DEFAULT NULL,
+          PRIMARY KEY (`id`, `uid`, `iid`) USING BTREE
+        ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
 </mapper>

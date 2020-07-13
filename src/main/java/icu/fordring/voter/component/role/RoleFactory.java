@@ -1,13 +1,8 @@
 package icu.fordring.voter.component.role;
 
-import icu.fordring.voter.pojo.Authority;
 import icu.fordring.voter.pojo.Role;
 import icu.fordring.voter.utils.StringUtils;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @Description role工厂类
@@ -19,9 +14,6 @@ import java.util.Set;
 public class RoleFactory {
 
 
-    public Role newDefaultRole(){
-        return newDefaultRole(null,null);
-    }
     public Role newDefaultRole(String name,String describe){
         Role role = new Role();
         role.setId(StringUtils.UUID());

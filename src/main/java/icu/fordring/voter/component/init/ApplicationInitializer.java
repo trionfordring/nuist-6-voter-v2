@@ -1,16 +1,10 @@
 package icu.fordring.voter.component.init;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import icu.fordring.voter.mapper.RoleMapper;
-import icu.fordring.voter.pojo.Role;
 import icu.fordring.voter.profile.ApplicationProfile;
+import icu.fordring.voter.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CORBA.PRIVATE_MEMBER;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import sun.rmi.runtime.Log;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -36,8 +30,9 @@ public class ApplicationInitializer implements Initializer {
     @Override
     @PostConstruct
     public void init() throws Exception {
-        log.info("正在初始化程序");
-        log.info("程序配置文件：\n{}",objectMapper.writeValueAsString(applicationProfile));
+        long t = System.currentTimeMillis();
+        log.info("==================正在初始化程序==================");
+        log.info("\n程序配置文件：\napplicationProfile:{}", StringUtils.formatJson(objectMapper.writeValueAsString(applicationProfile)));
         if(applicationProfile.isInitDatabaseWhenStart()){
             log.warn("即将初始化数据库");
             databaseInitializer.init();
@@ -45,7 +40,9 @@ public class ApplicationInitializer implements Initializer {
         }
         roleInitializer.init();
         after();
-        log.info("程序初始化完成");
+        log.info("==================程序初始化完成==================");
+        log.info("  耗时: {} ms",System.currentTimeMillis()-t);
+        log.info("=================================================");
     }
 
     @Override

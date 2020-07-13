@@ -33,4 +33,10 @@ public interface DevMapper {
     void createSessionTable();
 
     void createPersistentLoginTable();
+
+    void createCommentTable();
+
+    void createImageTable();
+
+    void createLikeImageTable();
 }

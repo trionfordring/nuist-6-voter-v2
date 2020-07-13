@@ -1,14 +1,9 @@
 package icu.fordring.voter.config;
 
-import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
-import icu.fordring.voter.config.swagger.LoginInterface;
-import icu.fordring.voter.config.swagger.LogoutInterface;
-import icu.fordring.voter.interceptor.TestInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,9 +13,6 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.annotation.Resource;
-import java.util.Arrays;
 
 /**
  * @author fordring
@@ -34,8 +26,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Value("${app.dev.swagger.path}")
     private String swaggerPath;
-    @Resource
-    private TestInterceptor testInterceptor;
 
     @Bean
     public Docket swagger() {
@@ -61,10 +51,5 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController(swaggerPath, "/swagger-ui.html");
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(testInterceptor).addPathPatterns("/**");
     }
 }
