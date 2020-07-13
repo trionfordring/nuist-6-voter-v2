@@ -5,6 +5,8 @@ import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Properties;
+
 /**
  * @Description 权限相关配置
  * @ClassName AuthorityProfile
@@ -17,4 +19,13 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "app.authority")
 public class AuthorityProfile {
     protected String[] defaultAuthorities;
+    protected CaptchaProfile captcha;
+
+    @Data
+    public static class CaptchaProfile{
+        private Properties properties;
+        private long aliveTime;
+        private String codeKey;
+        private String expirationKey;
+    }
 }

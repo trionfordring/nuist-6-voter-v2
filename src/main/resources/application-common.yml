@@ -17,8 +17,32 @@ app:
       - "HAS_LOGIN"               #判断是否已登录
       - "AUTHORITY_NAMES_SELF"    #查看自身的所有权限名
       - "ROLE_SELF"               #查询当前的角色
+    captcha:
+      properties:
+        kaptcha:
+          image:
+            height: 50
+            width: 120
+          background:
+            clear:
+              from: lightGray
+              to: white
+          border: "yes"
+          border.color: black
+          textproducer:
+            font:
+              size: 40
+              color: black
+              names: Arial,Courier
+            char:
+              length: 4
+              space: 4
+              string: abcdefghjkmnpqrstwxy3456789
+      alive-time: 300000  #验证码有效时间5分钟
+      code-key: CAPTCHA_CODE
+      expiration-key: CAPTCHA_TIME
+
   role:
     user-role: "USER"
     root-role: "ROOT"
-
   init-database-when-start: off  #警告：启用此项后，程序启动时会自动重置数据库到默认状态

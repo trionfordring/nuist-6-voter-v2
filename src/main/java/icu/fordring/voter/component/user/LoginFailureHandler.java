@@ -30,7 +30,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         log.warn("用户[ip='{}']登录失败", InternetUtils.getIPAddress(httpServletRequest));
         Result<Object> result = new Result<>();
-        result.setStatus(403);
+        result.setStatus(401);
         result.setMessage("登录失败.账号或密码错误");
         responseUtils.writeResult(result,httpServletResponse);
     }

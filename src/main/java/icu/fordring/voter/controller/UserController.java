@@ -5,6 +5,7 @@ import icu.fordring.voter.dto.user.UserDetailDto;
 import icu.fordring.voter.dto.user.UserDto;
 import icu.fordring.voter.dto.user.UserHasLoginDto;
 import icu.fordring.voter.dto.user.UserNameExistDto;
+import icu.fordring.voter.service.CaptchaService;
 import icu.fordring.voter.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,9 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import sun.nio.cs.US_ASCII;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * @Description
@@ -31,9 +36,10 @@ import javax.validation.constraints.NotNull;
 public class UserController {
     @Resource
     private UserService userService;
-
+    @Resource
+    private CaptchaService captchaService;
     @PreAuthorize("hasAuthority('USER_REGISTER')")
-    @ApiOperation(value = "用户注册",notes = "[USER_REGISTER]")
+    @ApiOperation(value = "用户注册",notes = "[USER_REGISTER]<br><b>注意:</b>用户请求完成后,无论成功与否，都会清空验证码缓存")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public Result<UserDto> register(
             @RequestParam("name") @ApiParam("用户名")                               String name       ,
@@ -41,7 +47,7 @@ public class UserController {
             @RequestParam(value = "verify",required = false) @ApiParam("校验码")    String verifyCode ,
             HttpServletRequest request
     ){
-
+        captchaService.verity(verifyCode,request.getSession());
         return new Result<>(HttpStatus.OK,userService.register(name,password,request),"注册成功");
     }
 
@@ -66,5 +72,20 @@ public class UserController {
     @RequestMapping(value = "/hasLogin",method = RequestMethod.GET)
     public Result<UserHasLoginDto> hasLogin(){
         return new Result<>(HttpStatus.OK,userService.hasLogin(),"查询成功");
+    }
+
+    @PreAuthorize("hasAuthority('USER_REGISTER')")
+    @ApiOperation(value = "获取一个注册用验证码",notes = "[USER_REGISTER]")
+    @RequestMapping(value = "/captcha",method = RequestMethod.GET)
+    public void captcha(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        //禁止缓存
+        response.setDateHeader("Expires", 0);
+        response.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
+        response.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
+        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+        response.setHeader("Pragma", "no-cache");
+        response.setContentType("image/jpeg");
+        BufferedImage image = captchaService.createCaptcha(request.getSession());
+        ImageIO.write(image,"jpg",response.getOutputStream());
     }
 }
