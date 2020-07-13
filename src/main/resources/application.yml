@@ -32,7 +32,7 @@ spring:
   profiles:
     active:
       - common
-      - private
+      - private #此配置文件保存了一些敏感信息(数据库配置和ssl配置等)，未开源
   session:
     store-type: jdbc
 mybatis:
@@ -53,3 +53,4 @@ server:
     key-store: ${app.ssl.key-store}
     key-store-password: ${app.ssl.key-store-password}
     key-store-type: ${app.ssl.key-store-type}
+  port: 443
