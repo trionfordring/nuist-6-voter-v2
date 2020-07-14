@@ -65,12 +65,7 @@
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_DELETE', '删除普通用户', 110);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_UPDATE', '修改自身的信息', 5);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_BAN', '注销自身的账户', 7);
-        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_QUERY', '获取所有用户的信息', 100);
-        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_UPDATE', '修改所有用户的信息', 150);
-        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_BAN', '封停任意用户', 190);
-        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_DELETE', '删除任意账户', 210);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ALL_INSERT', '增加普通用户', 80);
-        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ROOT_INSERT', '增加ROOT用户', 1000);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('USER_ADMIN_INSERT', '添加管理员账户', 500);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('HAS_LOGIN', '判断自己是否已经登录', 0);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ERROR', '访问异常处理器', 0);
@@ -80,6 +75,9 @@
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('AUTHORITY_NAMES_SELF', '获取自身的权限名列表', 0);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_SELF', '获取自身的角色列表', 0);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_QUERY', '获取角色的详细信息', 25);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('PHONE_USER', '手机认证用户', -1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('EMAIL_USER', '邮箱认证用户', -1);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_UPDATE', '修改所有角色', 111);
     </insert>
 
     <update id="createUser">

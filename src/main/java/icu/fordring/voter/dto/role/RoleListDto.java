@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class RoleListDto {
     @ApiModelProperty("角色信息组成的集合")
     protected Set<RoleDto> roles;
 
-    public RoleListDto(Set<Role> roles){
+    public RoleListDto(Collection<Role> roles){
         this.roles = new HashSet<>();
         for(Role role:roles){
             RoleDto roleDto = new RoleDto(role);

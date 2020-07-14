@@ -6,8 +6,10 @@ import icu.fordring.voter.dto.authority.AuthorityNameListDto;
 import icu.fordring.voter.service.AuthorityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +42,30 @@ public class AuthorityController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public Result<AuthorityNameListDto> selfAuthorityNames(){
         return new Result<>(HttpStatus.OK,authorityService.getSelfAuthorityNames(),"查询成功");
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_UPDATE')")
+    @ApiOperation(value = "为一个角色添加一个权限",notes = "[ROLE_UPDATE]")
+    @RequestMapping(value = "/{roleName}/{authName}",method = RequestMethod.POST)
+    public Result<Object> addAuthority(
+            @PathVariable("roleName") @ApiParam("角色名") String roleName,
+            @PathVariable("authName") @ApiParam("权限名") String authName){
+        authorityService.addAuthority(roleName,authName);
+        return new Result<>("添加成功");
+    }
+    @PreAuthorize("hasAuthority('AUTHORITY_LIST')")
+    @ApiOperation(value = "查询全部的权限",notes = "[AUTHORITY_LIST]")
+    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    public Result<AuthorityListDto> getAll(){
+        return new Result<>(HttpStatus.OK,authorityService.getAll(),"查询成功");
+    }
+    @PreAuthorize("hasAuthority('ROLE_UPDATE')")
+    @ApiOperation(value = "为一个角色删除一个权限",notes = "[ROLE_UPDATE]")
+    @RequestMapping(value = "/{roleName}/{authName}",method = RequestMethod.DELETE)
+    public Result<Object> deleteAuthority(
+            @PathVariable("roleName") @ApiParam("角色名") String roleName,
+            @PathVariable("authName") @ApiParam("权限名") String authName){
+        authorityService.deleteAuthority(roleName,authName);
+        return new Result<>("删除成功");
     }
 }

@@ -45,4 +45,4 @@ app:
   role:
     user-role: "USER"     #用户的默认角色
     root-role: "ROOT"     #管理员的默认角色
-  init-database-when-start: on  #启动时重置数据库     [警告：启用此项后，程序启动时会自动重置数据库到默认状态]
+  init-database-when-start: off  #启动时重置数据库     [警告：启用此项后，程序启动时会自动重置数据库到默认状态]

@@ -1,12 +1,16 @@
 package icu.fordring.voter.dao;
 
+import icu.fordring.voter.mapper.RoleAuthorityMapper;
 import icu.fordring.voter.mapper.RoleMapper;
+import icu.fordring.voter.pojo.Authority;
 import icu.fordring.voter.pojo.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Description 角色dao
@@ -44,4 +48,17 @@ public class RoleDao {
         Role role = roleMapper.selectDetailByName(name);
         return role;
     }
+
+    /**
+     * @Author fordring
+     * @Description  查找出所有的角色
+     * @Date 2020/7/14 15:47
+     * @Param []
+     * @return java.util.List<icu.fordring.voter.pojo.Role>
+     **/
+    public List<Role> getAll(){
+        log.info("查找所有角色");
+        return roleMapper.selectAll();
+    }
+
 }

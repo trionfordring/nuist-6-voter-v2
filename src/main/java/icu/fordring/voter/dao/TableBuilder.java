@@ -99,13 +99,30 @@ public class TableBuilder {
                     }
                 }
             }
+            specialRoleAuth();
             log.warn(" ---赋予角色默认权限完成---");
         }catch (Exception e){
             throw new RuntimeException("初始化[角色-权限]关联表失败",e.getCause());
         }
         log.warn("初始化[角色-权限]关联表成功");
     }
-
+    /**
+     * @Author fordring
+     * @Description  特殊角色初始化
+     * @Date 2020/7/14 14:56
+     * @Param []
+     * @return void
+     **/
+    private void specialRoleAuth(){
+        Role phone = roleMapper.selectByName("PHONE_AUTHORIZED");
+        Role email = roleMapper.selectByName("EMAIL_AUTHORIZED");
+        Authority pa = authorityMapper.selectByName("PHONE_USER");
+        Authority pe = authorityMapper.selectByName("EMAIL_USER");
+        roleAuthorityMapper.insert(phone.getId(),pa.getId());
+        roleAuthorityMapper.insert(email.getId(),pe.getId());
+        log.info("已添加权限[{}]-[{}]",phone.getDescription(),pa.getDescription());
+        log.info("已添加权限[{}]-[{}]",email.getDescription(),pe.getDescription());
+    }
     /**
      * @Author fordring
      * @Description  重置用户表
@@ -235,7 +252,7 @@ public class TableBuilder {
     /**
      * @Author fordring
      * @Description  建立板块表
-     * @Date 2020/7/14 13:04
+     * @Date 2020/7/14 13:31
      * @Param []
      * @return void
      **/

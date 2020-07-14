@@ -1,7 +1,9 @@
 package icu.fordring.voter.mapper;
 
+import icu.fordring.voter.pojo.Authority;
 import icu.fordring.voter.pojo.Role;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Description
@@ -11,5 +13,14 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface RoleAuthorityMapper {
-    int insert(String rid,Long aid);
+    int insert(@Param("rid") String rid,@Param("aid") Long aid);
+
+    /**
+     * @Author fordring
+     * @Description  删除一个用户的一个权限
+     * @Date 2020/7/14 14:49
+     * @Param [rid, aid]
+     * @return int
+     **/
+    int delete(@Param("rid") String rid,@Param("aid") Long aid);
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class AuthorityListDto {
     private Set<AuthorityDto> authorities;
 
     public AuthorityListDto(){}
-    public AuthorityListDto(Set<Authority> authorities){
+    public AuthorityListDto(Collection<Authority> authorities){
         this.authorities = new HashSet<>();
         authorities.forEach((Authority a)->{
             this.authorities.add(new AuthorityDto(a));

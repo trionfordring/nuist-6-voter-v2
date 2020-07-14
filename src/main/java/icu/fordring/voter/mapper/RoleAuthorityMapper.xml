@@ -8,6 +8,8 @@
         VALUES
         (#{rid},#{aid})
     </insert>
-
-
+    <delete id="delete">
+        DELETE FROM role_authority
+        WHERE rid=#{rid} AND aid=#{aid}
+    </delete>
 </mapper>

@@ -44,4 +44,10 @@ public class RoleController {
     ){
         return new Result<>(HttpStatus.OK,roleService.getRoleDetail(name),"查询成功");
     }
+    @PreAuthorize("hasAuthority('ROLE_QUERY')")
+    @ApiOperation(value = "查询出所有角色信息(不含对应的权限)",notes = "[ROLE_QUERY]")
+    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    public Result<RoleListDto> getAll(){
+        return new Result<>(HttpStatus.OK,roleService.getAll(),"查询成功");
+    }
 }

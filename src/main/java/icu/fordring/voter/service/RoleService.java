@@ -48,4 +48,16 @@ public class RoleService {
         if(userInfo==null)return new RoleListDto(Sets.newHashSet(RoleFactory.ANONYMOUS_ROLE));
         return new RoleListDto(userInfo.getRoles());
     }
+
+    /**
+     * @Author fordring
+     * @Description  查询所有的角色信息(不含权限)
+     * @Date 2020/7/14 15:48
+     * @Param []
+     * @return icu.fordring.voter.dto.role.RoleListDto
+     **/
+    public RoleListDto getAll(){
+        RoleListDto roleListDto = new RoleListDto(roleDao.getAll());
+        return roleListDto;
+    }
 }
