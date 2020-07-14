@@ -45,7 +45,8 @@ public class DatabaseInitializer implements Initializer {
     public void after() {
         String pwd = StringUtils.getRandomString(16);
         Role root = roleDao.getRoleByName(roleProfile.getRootRole());
-        User user = userRegister.register("root", pwd, Sets.newHashSet(root));
+        Role user = roleDao.getRoleByName(roleProfile.getUserRole());
+        User rootUser = userRegister.register("root", pwd, Sets.newHashSet(root,user));
         log.info("初始化root用户完成\n" +
                 "====================================================================\n" +
                 "==  \n" +
@@ -53,7 +54,7 @@ public class DatabaseInitializer implements Initializer {
                 "==    账户名:\t{}\n" +
                 "==    密 码 :\t{}\n" +
                 "==  \n" +
-                "====================================================================",user.getUsername(),pwd);
+                "====================================================================",rootUser.getUsername(),pwd);
     }
 
     /**
@@ -89,6 +90,8 @@ public class DatabaseInitializer implements Initializer {
             tableBuilder.initCommentTable();
             log.warn("  ========[建立图片点赞表]=========  ");
             tableBuilder.initLikeImageTable();
+            log.warn("  ==========[建立板块表]===========  ");
+            tableBuilder.initPlateTable();
         }catch (RuntimeException e){
             log.error("!=====================================!");
             log.error(" 重置数据库耗时:{}ms",System.currentTimeMillis()-time);

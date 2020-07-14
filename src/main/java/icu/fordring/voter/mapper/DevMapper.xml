@@ -184,7 +184,8 @@
           `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
           `create_time` datetime(0) NULL DEFAULT NULL,
           `resource` blob NULL,
-          PRIMARY KEY (`id`, `uid`) USING BTREE
+          `pid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          PRIMARY KEY (`id`, `uid`, `pid`) USING BTREE
         ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
     <update id="createLikeImageTable">
@@ -196,5 +197,18 @@
           `create_time` datetime(0) NULL DEFAULT NULL,
           PRIMARY KEY (`id`, `uid`, `iid`) USING BTREE
         ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+    </update>
+
+    <update id="createPlateTable">
+        DROP TABLE IF EXISTS `plate`;
+        CREATE TABLE `plate`  (
+          `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `create_time` datetime(0) NULL DEFAULT NULL,
+          `start_time` datetime(0) NULL DEFAULT NULL,
+          `end_time` datetime(0) NULL DEFAULT NULL,
+          `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+          `uid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+          PRIMARY KEY (`id`) USING BTREE
+        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>
 </mapper>

@@ -232,4 +232,19 @@ public class TableBuilder {
             throw new RuntimeException("建立图片点赞表失败");
         }
     }
+    /**
+     * @Author fordring
+     * @Description  建立板块表
+     * @Date 2020/7/14 13:04
+     * @Param []
+     * @return void
+     **/
+    public void initPlateTable(){
+        log.warn("正在建立板块表");
+        try {
+            devMapper.createPlateTable();
+        }catch (Exception e){
+            throw new RuntimeException("建立板块表失败");
+        }
+    }
 }

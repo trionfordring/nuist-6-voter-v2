@@ -1,23 +1,24 @@
 app:
   security:
-    # 是否启用spring-security
+    # 是否启用spring-security,如果关闭,权限系统将会失效
     enable: on
   dev:
-    # 是否启用开发环境(只有在开发环境下，才能访问swagger，TestController及其他测试对象)
+    # 是否启用开发环境(只有在开发环境下，才能访问swagger及其他测试对象)
     enable: on
     # swagger配置
     swagger:
+      # swagger的访问路径
       path: /api
   authority:
-    default-authorities:
-      - "USER_LOGIN"              #登录
-      - "USER_REGISTER"           #注册
-      - "USER_FIND_BACK"          #找回密码
-      - "ERROR"                   #查看异常
-      - "HAS_LOGIN"               #判断是否已登录
-      - "AUTHORITY_NAMES_SELF"    #查看自身的所有权限名
-      - "ROLE_SELF"               #查询当前的角色
-    captcha:
+    default-authorities:          # 未登录用户所具有的权限列表
+      - "USER_LOGIN"              # - 登录
+      - "USER_REGISTER"           # - 注册
+      - "USER_FIND_BACK"          # - 找回密码
+      - "ERROR"                   # - 查看异常
+      - "HAS_LOGIN"               # - 判断是否已登录
+      - "AUTHORITY_NAMES_SELF"    # - 查看自身的所有权限名
+      - "ROLE_SELF"               # - 查询当前的角色
+    captcha:              #注册时的验证码配置
       properties:
         kaptcha:
           image:
@@ -27,7 +28,6 @@ app:
             clear:
               from: lightGray
               to: white
-          border: "yes"
           border.color: black
           textproducer:
             font:
@@ -38,11 +38,11 @@ app:
               length: 4
               space: 4
               string: abcdefghjkmnpqrstwxy3456789
-      alive-time: 300000  #验证码有效时间5分钟
+      alive-time: 300000  #验证码有效时间
       code-key: CAPTCHA_CODE
       expiration-key: CAPTCHA_TIME
 
   role:
-    user-role: "USER"
-    root-role: "ROOT"
-  init-database-when-start: off  #警告：启用此项后，程序启动时会自动重置数据库到默认状态
+    user-role: "USER"     #用户的默认角色
+    root-role: "ROOT"     #管理员的默认角色
+  init-database-when-start: on  #启动时重置数据库     [警告：启用此项后，程序启动时会自动重置数据库到默认状态]

@@ -39,4 +39,6 @@ public interface DevMapper {
     void createImageTable();
 
     void createLikeImageTable();
+
+    void createPlateTable();
 }

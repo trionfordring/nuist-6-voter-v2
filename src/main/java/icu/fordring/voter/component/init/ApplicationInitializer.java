@@ -31,7 +31,7 @@ public class ApplicationInitializer implements Initializer {
     @PostConstruct
     public void init() throws Exception {
         long t = System.currentTimeMillis();
-        log.info("==================正在初始化程序==================");
+        log.warn("==================正在初始化程序==================");
         log.info("\n程序配置文件：\napplicationProfile:{}", StringUtils.formatJson(objectMapper.writeValueAsString(applicationProfile)));
         if(applicationProfile.isInitDatabaseWhenStart()){
             log.warn("即将初始化数据库");
@@ -40,9 +40,9 @@ public class ApplicationInitializer implements Initializer {
         }
         roleInitializer.init();
         after();
-        log.info("==================程序初始化完成==================");
-        log.info("  耗时: {} ms",System.currentTimeMillis()-t);
-        log.info("=================================================");
+        log.warn("==================程序初始化完成==================");
+        log.warn("  耗时: {} ms",System.currentTimeMillis()-t);
+        log.warn("=================================================");
     }
 
     @Override
