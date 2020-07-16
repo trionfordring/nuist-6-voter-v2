@@ -53,4 +53,23 @@ public interface UserMapper {
      * @return int
      **/
     int countByName(@Param("name") String name);
+    
+    /**
+     * @Author fordring
+     * @Description  通过id查询简单信息(不包含权限关系)
+     * @Date 2020/7/16 12:29
+     * @Param [id]
+     * @return icu.fordring.voter.pojo.User
+     **/
+    User selectSimpleById(@Param("id") String id);
+
+    /**
+     * @Author fordring
+     * @Description  通过name查询简单信息(不包含权限关系)
+     * @Date 2020/7/16 12:29
+     * @Param [id]
+     * @return icu.fordring.voter.pojo.User
+     **/
+    User selectSimpleByName(@Param("name") String name);
 }
+

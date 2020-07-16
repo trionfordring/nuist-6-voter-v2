@@ -25,11 +25,11 @@ public class PlateDto {
     protected String name;
     @ApiModelProperty("板块简介")
     protected String description;
-    @ApiModelProperty("活动起始时间戳")
+    @ApiModelProperty(value = "活动起始时间戳",example = "0")
     protected Long startTime;
-    @ApiModelProperty("活动结束时间戳")
+    @ApiModelProperty(value = "活动结束时间戳",example = "1")
     protected Long endTime;
-    @ApiModelProperty("板块创建时间戳")
+    @ApiModelProperty(value = "板块创建时间戳",example = "0")
     protected Long createTime;
 
     public PlateDto(Plate plate){

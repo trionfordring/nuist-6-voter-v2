@@ -8,7 +8,7 @@
         <result column="end_time" property="endTime"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
-        <association property="owner" column="uid" javaType="icu.fordring.voter.pojo.User" select="icu.fordring.voter.mapper.UserMapper.selectById"/>
+        <association property="owner" column="uid" javaType="icu.fordring.voter.pojo.User" select="icu.fordring.voter.mapper.UserMapper.selectSimpleById"/>
     </resultMap>
     <insert id="insert">
         INSERT INTO plate

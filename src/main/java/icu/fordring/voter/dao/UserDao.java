@@ -59,4 +59,20 @@ public class UserDao {
     public boolean exist(String name){
         return userMapper.countByName(name)>0;
     }
+
+    /**
+     * @Author fordring
+     * @Description  通过用户名查找简单信息
+     * @Date 2020/7/16 16:28
+     * @Param [name]
+     * @return icu.fordring.voter.pojo.User
+     **/
+    public User findSimpleByUsername(String name){
+        Long t = System.currentTimeMillis();
+        User user = userMapper.selectSimpleByName(name);
+        log.info("数据库查找用户[username='{}'])    +{}ms",name,System.currentTimeMillis()-t);
+        if(user==null)log.error("数据库查找用户[username='{}'])失败，用户不存在",name);
+        return user;
+    }
+
 }

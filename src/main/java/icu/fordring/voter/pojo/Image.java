@@ -15,9 +15,10 @@ import java.util.Date;
 public class Image implements Serializable {
     private static final long serialVersionUID = 1L;
     protected String id;
-    protected String uid;
-    protected String pid;
+    protected User owner;
+    protected Plate plate;
     protected String description;
     protected Date createTime;
     protected byte[] resource;
+    protected String name;
 }

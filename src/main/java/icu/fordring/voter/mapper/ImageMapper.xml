@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="icu.fordring.voter.mapper.ImageMapper">
+    <resultMap id="imageMap" type="icu.fordring.voter.pojo.Image">
+        <id column="id" property="id"/>
+        <result column="description" property="description"/>
+        <result column="create_time" property="createTime"/>
+        <result column="name" property="name"/>
+        <association property="owner" javaType="icu.fordring.voter.pojo.User">
+            <id column="uid" property="id"/>
+            <result column="username" property="username"/>
+            <result column="student_id" property="studentId"/>
+            <result column="create_date" property="createDate"/>
+            <result column="udescription" property="description"/>
+            <result column="enabled" property="enabled"/>
+            <result column="email" property="email"/>
+            <result column="phone" property="phone"/>
+            <result column="head" property="head"/>
+            <result column="last_password_reset_date" property="lastPasswordResetDate"/>
+        </association>
+        <association property="plate" javaType="icu.fordring.voter.pojo.Plate">
+            <id column="pid" property="id"/>
+            <result column="pct" property="createTime"/>
+            <result column="start_time" property="startTime"/>
+            <result column="end_time" property="endTime"/>
+            <result column="pname" property="name"/>
+            <result column="pdescription" property="description"/>
+            <association property="owner" column="puid" javaType="icu.fordring.voter.pojo.User" select="icu.fordring.voter.mapper.UserMapper.selectSimpleById"/>
+        </association>
+    </resultMap>
+    <select id="selectById" resultMap="imageMap">
+        SELECT
+            image.id,
+            image.description,
+            image.create_time,
+            image.uid,
+            image.pid,
+            image.`name`,
+            `user`.username,
+            `user`.student_id,
+            `user`.create_date,
+            `user`.description udescription,
+            `user`.enabled,
+            `user`.email,
+            `user`.phone,
+            `user`.head,
+            `user`.last_password_reset_date,
+            plate.create_time pct,
+            plate.description pdescription,
+            plate.start_time,
+            plate.end_time,
+            plate.`name` pname,
+            plate.uid puid
+        FROM image
+                 LEFT JOIN `user` ON `user`.id=image.uid
+                 LEFT JOIN `plate` ON plate.id=image.pid
+        WHERE image.id=#{id}
+    </select>
+    <insert id="insert">
+        INSERT INTO image
+            (id, uid, description, create_time, resource, pid, name)
+        value
+            (#{id},#{owner.id},#{description},#{createTime},#{resource},#{plate.id},#{name})
+    </insert>
+</mapper>

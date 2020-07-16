@@ -19,9 +19,9 @@ public class PlateSimpleDto {
     protected String id;
     @ApiModelProperty("板块名")
     protected String name;
-    @ApiModelProperty("活动起始时间戳")
+    @ApiModelProperty(value = "活动起始时间戳",example = "0")
     protected Long startTime;
-    @ApiModelProperty("活动结束时间戳")
+    @ApiModelProperty(value = "活动结束时间戳",example = "1")
     protected Long endTime;
 
     public PlateSimpleDto(Plate plate){

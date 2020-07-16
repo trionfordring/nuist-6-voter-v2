@@ -85,6 +85,9 @@
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('ROLE_UPDATE', '修改所有角色', 111);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('PLATE_QUERY', '查询板块信息', 26);
         INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('PLATE_CREATE', '新建板块', 35);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('IMAGE_INSERT', '插入image', 31);
+        INSERT INTO `authority`(`name`, `description`, `level`) VALUES ('IMAGE_QUERY', '查询image', 25);
+
     </insert>
 
     <update id="createUser">
@@ -112,7 +115,7 @@
         DROP TABLE IF EXISTS `head_resource`;
         CREATE TABLE `head_resource`  (
           `id` bigint(20) NOT NULL AUTO_INCREMENT,
-          `resource` blob NULL,
+          `resource` mediumblob NULL,
           `is_gift` bit(1) NULL DEFAULT b'0',
           PRIMARY KEY (`id`) USING BTREE
         ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -188,8 +191,9 @@
           `uid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
           `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
           `create_time` datetime(0) NULL DEFAULT NULL,
-          `resource` blob NULL,
+          `resource` mediumblob NULL,
           `pid` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+          `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
           PRIMARY KEY (`id`, `uid`, `pid`) USING BTREE
         ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
     </update>

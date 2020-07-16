@@ -41,9 +41,9 @@ public class PlateController {
     @RequestMapping(value = "",method = RequestMethod.POST)
     public Result<PlateDto> createPlate(
             @RequestParam("name") @ApiParam("板块名") String name,
-            @RequestParam(value = "description",required = false) @ApiParam(value = "简介",required = false) String description,
-            @RequestParam(value = "startTime",required = false) @ApiParam(value = "起始时间戳",required = false) Long startTime,
-            @RequestParam(value = "endTime",required = false) @ApiParam(value = "结束时间戳",required = false) Long endTime
+            @RequestParam(value = "description",required = false) @ApiParam(value = "简介") String description,
+            @RequestParam(value = "startTime",required = false) @ApiParam(value = "起始时间戳",example = "0") Long startTime,
+            @RequestParam(value = "endTime",required = false) @ApiParam(value = "结束时间戳",example = "1") Long endTime
     ){
         PlateDto plateDto = plateService.create(name,description,startTime,endTime);
         return new Result<>(HttpStatus.OK,plateDto,"新建成功");

@@ -120,5 +120,14 @@
         WHERE username=#{name}
     </select>
 
-
+    <select id="selectSimpleById" resultType="icu.fordring.voter.pojo.User">
+        SELECT *
+        FROM `user`
+        WHERE id=#{id}
+    </select>
+    <select id="selectSimpleByName" resultType="icu.fordring.voter.pojo.User">
+        SELECT *
+        FROM `user`
+        WHERE username=#{name}
+    </select>
 </mapper>
