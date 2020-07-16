@@ -41,7 +41,7 @@ public class UserNameChecker {
      **/
     public boolean checkLength(String name){
         if(name==null)return false;
-        return name.length()>0&&name.length()<32;
+        return name.length()>0&&name.length()<64;
     }
 
     /**

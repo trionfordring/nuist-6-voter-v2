@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="icu.fordring.voter.mapper.PlateMapper">
+    <resultMap id="plateMap" type="icu.fordring.voter.pojo.Plate">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <association property="owner" column="uid" javaType="icu.fordring.voter.pojo.User" select="icu.fordring.voter.mapper.UserMapper.selectById"/>
+    </resultMap>
+    <insert id="insert">
+        INSERT INTO plate
+        (id, create_time, start_time, end_time, name, uid, description)
+        value
+        (#{id},#{createTime},#{startTime},#{endTime},#{name},#{owner.id},#{description})
+    </insert>
+    <select id="selectById" resultMap="plateMap">
+        SELECT * FROM plate WHERE id=#{id}
+    </select>
+    <select id="selectAll" resultMap="plateMap">
+        SELECT * FROM plate
+    </select>
+</mapper>

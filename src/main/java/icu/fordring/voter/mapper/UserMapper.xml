@@ -119,4 +119,6 @@
         FROM `user`
         WHERE username=#{name}
     </select>
+
+
 </mapper>

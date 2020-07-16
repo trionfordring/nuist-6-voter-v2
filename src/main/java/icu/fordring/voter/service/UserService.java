@@ -10,6 +10,7 @@ import icu.fordring.voter.dto.user.UserNameExistDto;
 import icu.fordring.voter.pojo.User;
 import icu.fordring.voter.utils.AuthorityUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
