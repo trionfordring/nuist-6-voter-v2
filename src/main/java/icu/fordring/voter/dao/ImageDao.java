@@ -42,4 +42,16 @@ public class ImageDao {
         log.info("查询image[{}]",id);
         return imageMapper.selectById(id);
     }
+    
+    /**
+     * @Author fordring
+     * @Description  获取图片资源
+     * @Date 2020/7/17 10:43
+     * @Param [id]
+     * @return byte[]
+     **/
+    public byte[] getResource(String id){
+        log.info("获取image[{}]的资源",id);
+        return imageMapper.getResource(id).getResource();
+    }
 }

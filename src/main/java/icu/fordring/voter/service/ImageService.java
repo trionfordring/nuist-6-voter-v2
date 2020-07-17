@@ -7,6 +7,8 @@ import icu.fordring.voter.dto.image.ImageDto;
 import icu.fordring.voter.pojo.Image;
 import icu.fordring.voter.utils.AuthorityUtils;
 import icu.fordring.voter.utils.FileUtils;
+import icu.fordring.voter.utils.ImageCompressor;
+import icu.fordring.voter.utils.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -31,6 +35,8 @@ public class ImageService {
     private PlateDao plateDao;
     @Resource
     private ImageDao imageDao;
+    @Resource
+    private ResponseUtils responseUtils;
     /**
      * @Author fordring
      * @Description  新建一个image
@@ -63,5 +69,23 @@ public class ImageService {
     public ImageDto selectById(String id){
         Image image = imageDao.selectById(id);
         return new ImageDto(image);
+    }
+    /**
+     * @Author fordring
+     * @Description  展示图片
+     * @Date 2020/7/17 10:29
+     * @Param [id]
+     * @return void
+     **/
+    public void show(String id,double scale,double quality, HttpServletResponse response) {
+        byte[] res = imageDao.getResource(id);
+        BufferedImage image;
+        try {
+            image = ImageCompressor.compress(res,scale,quality);
+            responseUtils.writeImage(image,response);
+        } catch (IOException e) {
+            log.error("在压缩和传输图片时出错：{}",e.getMessage());
+            throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR,"图片传输失败");
+        }
     }
 }

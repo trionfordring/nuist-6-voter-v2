@@ -13,6 +13,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Max;
 
 /**
  * @Description
@@ -44,5 +46,21 @@ public class ImageController {
             @PathVariable("id") @ApiParam("id") String id
     ){
         return new Result<>(HttpStatus.OK,imageService.selectById(id),"查询成功");
+    }
+    @PreAuthorize("hasAuthority('IMAGE_QUERY')")
+    @ApiOperation(value = "通过id显示图片",notes = "[IMAGE_QUERY]<br><b>tips:</b>由于特殊原因，quality参数几乎不会影响图片大小，请尽量不要使用quality参数")
+    @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)
+    public void getResource(
+            @PathVariable(value = "id",required = true)
+            @ApiParam(value = "image的id",required = true) String id,
+            @RequestParam(value = "scale",required = false,defaultValue = "1")
+            @ApiParam(value = "缩放比例(默认为1)",example = "1.0")
+            @Max(value = 1,message = "缩放比例不能大于1") Double scale,
+            @RequestParam(value = "quality",required = false,defaultValue = "1")
+            @ApiParam(value = "图像质量(默认为1)",example = "1.0")
+            @Max(value = 1,message = "图像质量不能大于1") Double quality,
+            HttpServletResponse response
+    ){
+        imageService.show(id,scale,quality,response);
     }
 }

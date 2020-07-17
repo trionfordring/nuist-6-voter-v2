@@ -62,4 +62,9 @@
         value
             (#{id},#{owner.id},#{description},#{createTime},#{resource},#{plate.id},#{name})
     </insert>
+    <select id="getResource" resultType="icu.fordring.voter.pojo.Image">
+        SELECT resource
+        FROM image
+        WHERE id=#{id}
+    </select>
 </mapper>
