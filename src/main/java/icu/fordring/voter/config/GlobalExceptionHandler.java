@@ -9,6 +9,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 
 /**
  * @Description 全局异常处理器
@@ -50,6 +51,30 @@ public class GlobalExceptionHandler {
         Result<Object> resultVO = new Result<>();
         resultVO.setStatus(403);
         resultVO.setMessage("权限不足");
+        resultVO.setData(null);
+        return resultVO;
+    }
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public Result<Object> handleIllegalArgumentException(HttpServletRequest request, HttpServletResponse response,IllegalArgumentException e) {
+        log.error("用户输入格式错误[{} - {} - {}]:{}",request.getRequestURI(),request.getMethod(),request.getContentType(),e.getMessage());
+        response.setContentType("application/json");
+        Result<Object> resultVO = new Result<>();
+        resultVO.setStatus(400);
+        resultVO.setMessage("输入格式错误:"+e.getMessage());
+        resultVO.setData(null);
+        return resultVO;
+    }
+    @ExceptionHandler(value = javax.validation.ConstraintViolationException.class)
+    public Result<Object> handleConstraintViolationException(HttpServletRequest request, HttpServletResponse response,javax.validation.ConstraintViolationException e) {
+        log.error("用户输入格式错误[{} - {} - {}]:{}",request.getRequestURI(),request.getMethod(),request.getContentType(),e.getMessage());
+        response.setContentType("application/json");
+        Result<Object> resultVO = new Result<>();
+        resultVO.setStatus(400);
+        StringBuilder sb = new StringBuilder("输入格式错误:");
+        for(ConstraintViolation<?> constraintViolation:e.getConstraintViolations()){
+            sb.append(constraintViolation.getMessage()).append(",");
+        }
+        resultVO.setMessage(sb.subSequence(0,sb.length()-1).toString());
         resultVO.setData(null);
         return resultVO;
     }

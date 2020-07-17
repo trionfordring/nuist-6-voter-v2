@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import icu.fordring.voter.dto.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -22,6 +25,7 @@ import java.util.Map;
  * @date 2020.07.06 12:59
  */
 @Component
+@Slf4j
 public class ResponseUtils {
     @Resource
     private ObjectMapper objectMapper;
@@ -44,5 +48,22 @@ public class ResponseUtils {
     public void writeImage(BufferedImage image,HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
         ImageIO.write(image,"jpg",response.getOutputStream());
+    }
+    /**
+     * @Author fordring
+     * @Description  输出压缩后的图片
+     * @Date 2020/7/17 11:06
+     * @Param [img, scale, quality, response]
+     * @return void
+     **/
+    public void showImage(byte[] img,double scale,double quality,HttpServletResponse response){
+        BufferedImage image;
+        try {
+            image = ImageCompressor.compress(img,scale,quality);
+            this.writeImage(image,response);
+        } catch (IOException e) {
+            log.error("在压缩和传输图片时出错：{}",e.getMessage());
+            throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR,"图片传输失败");
+        }
     }
 }

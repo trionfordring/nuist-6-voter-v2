@@ -32,6 +32,7 @@ public class UserDto {
 
     public UserDto(){}
     public UserDto(User user){
+        if(user==null)return;
         this.username=user.getUsername();
         this.realName=user.getRealName();
         this.studentId=user.getStudentId();

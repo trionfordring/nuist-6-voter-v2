@@ -1,6 +1,8 @@
 package icu.fordring.voter.utils;
 
 import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,4 +64,5 @@ public class ImageCompressor {
         g.dispose();
         return bimage;
     }
+
 }

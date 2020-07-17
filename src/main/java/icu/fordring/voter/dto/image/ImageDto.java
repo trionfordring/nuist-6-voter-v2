@@ -31,11 +31,12 @@ public class ImageDto {
     @ApiModelProperty("image名")
     protected String name;
     public ImageDto(Image image){
+        if(image==null)return;
         this.id=image.getId();
-        this.owner=new UserDto(image.getOwner());
-        this.plate=new PlateSimpleDto(image.getPlate());
+        if(image.getOwner()!=null)this.owner=new UserDto(image.getOwner());
+        if(image.getPlate()!=null)this.plate=new PlateSimpleDto(image.getPlate());
         this.description=image.getDescription();
-        this.createTime=image.getCreateTime().getTime();
+        if(image.getCreateTime()!=null)this.createTime=image.getCreateTime().getTime();
         this.name=image.getName();
     }
 }

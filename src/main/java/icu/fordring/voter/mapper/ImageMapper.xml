@@ -67,4 +67,9 @@
         FROM image
         WHERE id=#{id}
     </select>
+    <select id="getAll" resultType="icu.fordring.voter.pojo.Image">
+        SELECT id, uid, description, create_time, pid, name
+        FROM image
+        WHERE pid=#{pid}
+    </select>
 </mapper>

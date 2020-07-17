@@ -4,10 +4,10 @@ import icu.fordring.voter.component.image.ImageFactory;
 import icu.fordring.voter.dao.ImageDao;
 import icu.fordring.voter.dao.PlateDao;
 import icu.fordring.voter.dto.image.ImageDto;
+import icu.fordring.voter.dto.image.ImageListDto;
 import icu.fordring.voter.pojo.Image;
 import icu.fordring.voter.utils.AuthorityUtils;
 import icu.fordring.voter.utils.FileUtils;
-import icu.fordring.voter.utils.ImageCompressor;
 import icu.fordring.voter.utils.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Description
@@ -79,13 +79,17 @@ public class ImageService {
      **/
     public void show(String id,double scale,double quality, HttpServletResponse response) {
         byte[] res = imageDao.getResource(id);
-        BufferedImage image;
-        try {
-            image = ImageCompressor.compress(res,scale,quality);
-            responseUtils.writeImage(image,response);
-        } catch (IOException e) {
-            log.error("在压缩和传输图片时出错：{}",e.getMessage());
-            throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR,"图片传输失败");
-        }
+        responseUtils.showImage(res,scale,quality,response);
+    }
+    /**
+     * @Author fordring
+     * @Description  通过pid查询板块下的所有image
+     * @Date 2020/7/17 11:07
+     * @Param [pid]
+     * @return icu.fordring.voter.dto.image.ImageListDto
+     **/
+    public ImageListDto getAll(String pid){
+        List<Image> imageList = imageDao.getAll(pid);
+        return new ImageListDto(imageList);
     }
 }

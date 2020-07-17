@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpServerErrorException;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Description
@@ -53,5 +54,16 @@ public class ImageDao {
     public byte[] getResource(String id){
         log.info("获取image[{}]的资源",id);
         return imageMapper.getResource(id).getResource();
+    }
+    /**
+     * @Author fordring
+     * @Description  通过pid查询全部的image(不包含级联信息)
+     * @Date 2020/7/17 11:02
+     * @Param [pid]
+     * @return java.util.List<icu.fordring.voter.pojo.Image>
+     **/
+    public List<Image> getAll(String pid){
+        log.info("查询pid[{}]下的所有图片",pid);
+        return imageMapper.getAll(pid);
     }
 }

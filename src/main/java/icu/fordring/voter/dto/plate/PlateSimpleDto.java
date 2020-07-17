@@ -25,6 +25,7 @@ public class PlateSimpleDto {
     protected Long endTime;
 
     public PlateSimpleDto(Plate plate){
+        if(plate==null)return;
         this.id = plate.getId();
         this.name = plate.getName();
         this.startTime = plate.getStartTime().getTime();
