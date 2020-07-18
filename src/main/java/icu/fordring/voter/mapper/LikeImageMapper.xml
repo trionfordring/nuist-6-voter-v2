@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="icu.fordring.voter.mapper.LikeImageMapper">
+    <insert id="insert">
+        INSERT INTO like_image
+        (id, uid, iid, create_time)
+        VALUE
+        (#{id},#{owner.id},#{image.id},#{createTime})
+    </insert>
+    <select id="countByImage" resultType="_int">
+        SELECT count(DISTINCT uid) FROM like_image where iid=#{iid}
+    </select>
+    <delete id="deleteByLink" >
+        DELETE FROM like_image WHERE uid=#{uid} AND iid=#{iid}
+    </delete>
+    <delete id="deleteById">
+        DELETE FROM like_image WHERE id=#{id}
+    </delete>
+    <resultMap id="selectByImageMap" type="icu.fordring.voter.pojo.LikeImage" autoMapping="true">
+        <association property="owner" javaType="icu.fordring.voter.pojo.User" autoMapping="true">
+            <id column="uid" property="id"/>
+        </association>
+        <association property="image" javaType="icu.fordring.voter.pojo.Image">
+            <id column="iid" property="id"/>
+        </association>
+    </resultMap>
+    <select id="selectByImage" resultMap="selectByImageMap">
+        select like_image.id,uid,iid, create_time,
+            username,real_name,student_id,email, phone, enabled,last_password_reset_date, create_date,head
+        from like_image
+        left join user on user.id=uid
+        where iid=#{iid}
+        group by uid
+    </select>
+    <resultMap id="selectByUserMap" type="icu.fordring.voter.pojo.LikeImage" autoMapping="true">
+        <association property="owner" javaType="icu.fordring.voter.pojo.User">
+            <id column="uid" property="id"/>
+        </association>
+        <association property="image" javaType="icu.fordring.voter.pojo.Image" autoMapping="true">
+            <id column="iid" property="id"/>
+            <result column="iuid" property="id"/>
+            <result column="ict" property="createTime"/>
+        </association>
+    </resultMap>
+    <select id="selectByUser" resultMap="selectByUserMap">
+        select like_image.id,like_image.uid,iid, like_image.create_time,
+               image.uid iuid, image.description, image.create_time ict, pid, name
+        from like_image
+        left join image on image.id=iid
+        left join user on user.id=image.uid
+        where user.username=#{name}
+        group by iid
+    </select>
+</mapper>

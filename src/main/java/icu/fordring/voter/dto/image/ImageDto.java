@@ -30,6 +30,8 @@ public class ImageDto {
     protected Long createTime;
     @ApiModelProperty("image名")
     protected String name;
+    @ApiModelProperty("喜欢此图片的人数")
+    protected Integer likes;
     public ImageDto(Image image){
         if(image==null)return;
         this.id=image.getId();
@@ -38,5 +40,6 @@ public class ImageDto {
         this.description=image.getDescription();
         if(image.getCreateTime()!=null)this.createTime=image.getCreateTime().getTime();
         this.name=image.getName();
+        this.likes=image.getLikes();
     }
 }

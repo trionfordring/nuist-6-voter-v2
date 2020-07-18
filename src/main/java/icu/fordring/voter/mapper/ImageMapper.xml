@@ -52,8 +52,8 @@
             plate.`name` pname,
             plate.uid puid
         FROM image
-                 LEFT JOIN `user` ON `user`.id=image.uid
-                 LEFT JOIN `plate` ON plate.id=image.pid
+         LEFT JOIN `user` ON `user`.id=image.uid
+         LEFT JOIN `plate` ON plate.id=image.pid
         WHERE image.id=#{id}
     </select>
     <insert id="insert">

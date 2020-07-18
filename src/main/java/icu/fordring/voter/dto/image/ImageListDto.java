@@ -4,6 +4,7 @@ import icu.fordring.voter.pojo.Image;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +16,7 @@ import java.util.Collection;
  * @date 2020.07.16 16:06
  */
 @Data
+@NoArgsConstructor
 @ApiModel("image数组")
 public class ImageListDto {
     @ApiModelProperty("image组成的数组")

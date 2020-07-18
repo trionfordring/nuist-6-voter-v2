@@ -21,4 +21,5 @@ public class Image implements Serializable {
     protected Date createTime;
     protected byte[] resource;
     protected String name;
+    protected Integer likes;
 }

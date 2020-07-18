@@ -14,8 +14,8 @@ import java.util.Date;
 @Data
 public class LikeImage implements Serializable {
     private static final long serialVersionUID = 1L;
-    protected Long id;
-    protected String uid;
-    protected String iid;
+    protected String id;
+    protected User owner;
+    protected Image image;
     protected Date createTime;
 }
