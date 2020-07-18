@@ -54,6 +54,13 @@ public class GlobalExceptionHandler {
         resultVO.setData(null);
         return resultVO;
     }
+    /**
+     * @Author fordring
+     * @Description  处理一些格式异常
+     * @Date 2020/7/17 13:03
+     * @Param [request, response, e]
+     * @return icu.fordring.voter.dto.Result<java.lang.Object>
+     **/
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result<Object> handleIllegalArgumentException(HttpServletRequest request, HttpServletResponse response,IllegalArgumentException e) {
         log.error("用户输入格式错误[{} - {} - {}]:{}",request.getRequestURI(),request.getMethod(),request.getContentType(),e.getMessage());
@@ -64,6 +71,13 @@ public class GlobalExceptionHandler {
         resultVO.setData(null);
         return resultVO;
     }
+    /**
+     * @Author fordring
+     * @Description  处理参数校验异常
+     * @Date 2020/7/17 13:03
+     * @Param [request, response, e]
+     * @return icu.fordring.voter.dto.Result<java.lang.Object>
+     **/
     @ExceptionHandler(value = javax.validation.ConstraintViolationException.class)
     public Result<Object> handleConstraintViolationException(HttpServletRequest request, HttpServletResponse response,javax.validation.ConstraintViolationException e) {
         log.error("用户输入格式错误[{} - {} - {}]:{}",request.getRequestURI(),request.getMethod(),request.getContentType(),e.getMessage());

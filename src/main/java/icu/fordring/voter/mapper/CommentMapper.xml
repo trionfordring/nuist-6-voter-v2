@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="icu.fordring.voter.mapper.CommentMapper">
+    <insert id="insert">
+        INSERT INTO comment
+            (id, content, uid, iid, parent, create_time)
+        value
+            (#{id},#{content},#{owner.id},#{image.id},#{parent},#{createTime})
+    </insert>
+    <resultMap id="commentMap" type="icu.fordring.voter.pojo.Comment" autoMapping="true">
+        <association property="owner" javaType="icu.fordring.voter.pojo.User" autoMapping="true">
+            <id column="uid" property="id"/>
+            <result column="ud" property="description"/>
+        </association>
+        <association property="image" javaType="icu.fordring.voter.pojo.Image" autoMapping="true">
+            <id column="iid" property="id"/>
+            <result column="ict" property="createTime"/>
+        </association>
+    </resultMap>
+    <select id="selectById" resultMap="commentMap">
+        SELECT
+            `comment`.id,
+            `comment`.content,
+            `comment`.uid,
+            `comment`.iid,
+            `comment`.parent,
+            `comment`.create_time,
+            `user`.username,
+            `user`.student_id,
+            `user`.create_date,
+            `user`.description ud,
+            `user`.enabled,
+            `user`.email,
+            `user`.phone,
+            `user`.head,
+            `user`.last_password_reset_date,
+            image.description,
+            image.create_time ict,
+            image.`name`
+        FROM `comment`
+            LEFT JOIN image ON image.id=`comment`.iid
+            LEFT JOIN `user` ON `user`.id=`comment`.uid
+        WHERE comment.id=#{id}
+    </select>
+    <select id="selectAll" resultType="icu.fordring.voter.pojo.Comment">
+        SELECT `comment`.id, parent, create_time
+        FROM `comment`
+        WHERE iid=#{iid}
+        ORDER BY create_time ASC
+    </select>
+</mapper>

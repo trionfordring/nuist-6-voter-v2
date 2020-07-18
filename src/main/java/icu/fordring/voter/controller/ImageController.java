@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -50,7 +49,6 @@ public class ImageController {
     ){
         return new Result<>(HttpStatus.OK,imageService.selectById(id),"查询成功");
     }
-
     @PreAuthorize("hasAuthority('IMAGE_QUERY')")
     @ApiOperation(value = "通过id显示图片",notes = "[IMAGE_QUERY]<br><b>tips:</b>由于特殊原因，quality参数几乎不会影响图片大小，请尽量不要使用quality参数")
     @RequestMapping(value = "/resource/{id}",method = RequestMethod.GET)

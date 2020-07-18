@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @Description 评论
@@ -16,8 +17,8 @@ public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
     protected String id;
     protected String content;
-    protected String uid;
-    protected String iid;
+    protected User owner;
+    protected Image image;
     protected String parent;
     protected Date createTime;
 }
